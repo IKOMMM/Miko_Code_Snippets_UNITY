@@ -4,8 +4,7 @@
 using UnityEngine;  
  
 public class PlayerMovement : MonoBehaviour
-{
-    
+{    
     Camera mainCamera;
     Vector3 newPosition = transform.position;
     Vector3 ViewportPosition = mainCamera.WorldToViewportPoint(transform.position);
