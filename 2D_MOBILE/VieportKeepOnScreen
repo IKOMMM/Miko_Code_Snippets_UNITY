@@ -1,0 +1,32 @@
+//NEEDS MAINCAMERA
+//JUST TO PUT ON AN OBJECT THAT NEEDS TO BE RIGHT IN VIEPORT
+
+using UnityEngine;  
+ 
+public class PlayerMovement : MonoBehaviour
+{
+    
+    Camera mainCamera;
+    Vector3 newPosition = transform.position;
+    Vector3 ViewportPosition = mainCamera.WorldToViewportPoint(transform.position);
+
+        if(ViewportPosition.x > 1)
+        {
+            newPosition.x = -newPosition.x + 0.1f;
+        }
+        else if(ViewportPosition.x < 0)
+        {
+            newPosition.x = -newPosition.x - 0.1f;
+        }
+        else if (ViewportPosition.y > 1)
+        {
+            newPosition.y = -newPosition.y + 0.1f;
+        }
+        else if (ViewportPosition.x < 0)
+        {
+            newPosition.y = -newPosition.y - 0.1f;
+        }
+
+        transform.position = newPosition;
+        
+}
