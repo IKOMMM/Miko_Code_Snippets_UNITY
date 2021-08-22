@@ -1,0 +1,45 @@
+int x, y, coordinateX, coordinateY;    
+int numberOfElements = maxNumberOfElements = 20000; //Default 
+Dictionary<int, HashSet<int>> coordinates = new Dictionary<int, HashSet<int>>();
+
+void GenerateUniqueValues()
+    {
+        for (numberOfElements = 0; numberOfElements < maxNumberOfElements; numberOfElements++)
+        {
+            GenerateRandomCoordinates();
+            //Debug.Log("Coordinates:" + x + y);
+            coordinateX = x;
+            coordinateY = y;
+            ExtraBoxPicker();
+        }
+    }
+
+bool GenerateRandomCoordinates()
+    {
+        x = Random.Range(-xMaxCellEdge, xMaxCellEdge);
+        y = Random.Range(-yMaxCellEdge, yMaxCellEdge);
+
+        if (coordinates.TryGetValue(x, out HashSet<int> values))
+        {
+            if (!values.Add(y))
+            {
+                return GenerateRandomCoordinates();
+            }
+            else
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (coordinates.ContainsKey(x) == false)
+            {
+                coordinates.Add(x, new HashSet<int>() { y });
+                return GenerateRandomCoordinates();
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
