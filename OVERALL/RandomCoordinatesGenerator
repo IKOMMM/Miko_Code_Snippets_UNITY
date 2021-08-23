@@ -1,23 +1,42 @@
-int x, y, coordinateX, coordinateY;    
-int numberOfElements = maxNumberOfElements = 20000; //Default 
-Dictionary<int, HashSet<int>> coordinates = new Dictionary<int, HashSet<int>>();
+using System.Collections.Generic;
+using UnityEngine;
 
-void GenerateUniqueValues()
+public class CoordinatesGenerator : MonoBehaviour
+{
+    int x, y;
+    int xPosition, yPosition;//Positions to generate elements
+    int numberOfElements;
+    int maxNumberOfElements = 25; //Default
+
+    Dictionary<int, HashSet<int>> coordinates = new Dictionary<int, HashSet<int>>();
+
+    //CellEdges - The scope of generating elements 
+    [SerializeField] int xMinCellEdge = -10;
+    [SerializeField] int xMaxCellEdge = 10;
+    [SerializeField] int yMinCellEdge = -10;
+    [SerializeField] int yMaxCellEdge = 10;
+
+    private void Start()
+    {
+        GenerateExtraBoxesOnUniqueValues();
+    }
+
+    void GenerateExtraBoxesOnUniqueValues()
     {
         for (numberOfElements = 0; numberOfElements < maxNumberOfElements; numberOfElements++)
         {
             GenerateRandomCoordinates();
-            //Debug.Log("Coordinates:" + x + y);
-            coordinateX = x;
-            coordinateY = y;
-            ExtraBoxPicker();
+            Debug.Log("Coordinates Checked: " + "x: " + x + " y: " + y);
+            x = xPosition;
+            y = yPosition;
         }
     }
 
-bool GenerateRandomCoordinates()
+    bool GenerateRandomCoordinates()
     {
-        x = Random.Range(-xMaxCellEdge, xMaxCellEdge);
-        y = Random.Range(-yMaxCellEdge, yMaxCellEdge);
+        x = Random.Range(xMinCellEdge, xMaxCellEdge);
+        y = Random.Range(yMinCellEdge, yMaxCellEdge);
+        Debug.Log("Coordinates Random: " + "x: " + x + " y: " + y);
 
         if (coordinates.TryGetValue(x, out HashSet<int> values))
         {
@@ -43,3 +62,4 @@ bool GenerateRandomCoordinates()
             }
         }
     }
+}
